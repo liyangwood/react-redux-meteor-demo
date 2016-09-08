@@ -58,11 +58,16 @@ const TaskInput = class extends React.Component{
 
 		this.props.addButtonCallback && this.props.addButtonCallback(this.getValue());
 
+		this.reset();
+	}
+
+	reset(){
 		//reset input
 		findDOMNode(this.refs.input).value = '';
 		this.props.dispatch(actions.reset('form.task'));
 
 		findDOMNode(this.refs.select).value = Priority[0].value;
+		$(findDOMNode(this.refs.input)).focus();
 	}
 
 	getValue(){
@@ -78,6 +83,10 @@ const TaskInput = class extends React.Component{
 		this.props.dispatch(actions.validateErrors('form.task', {
 			length : (v)=>v.length<5 && 'Input value length is too short.'
 		}))
+	}
+
+	componentDidMount(){
+		this.reset();
 	}
 
 };
