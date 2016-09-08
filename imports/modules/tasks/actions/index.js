@@ -1,4 +1,5 @@
 import * as types from '../constants/tasks';
+import { actions } from 'react-redux-form';
 
 export const subscribe = () => {
   return (dispatch, getState, { Meteor, Tracker, Collections }) => {
@@ -7,7 +8,11 @@ export const subscribe = () => {
       if (subs.ready()) {
         dispatch({
           type: types.UPDATE_TASK,
-          tasks: Collections.Todos.find().fetch(),
+          tasks: Collections.Todos.find({}, {
+            sort : {
+              priority : -1
+            }
+          }).fetch()
         })
       }
     })
@@ -17,8 +22,14 @@ export const subscribe = () => {
 
 export const addTask = (task) => {
   return (dispatch, getState, { Meteor }) => {
+
+    if(!task.priority){
+      task.priority = 1;
+    }
+
     Meteor.call("addTask", task, (err, res) => {
       if (err) return console.error(err)
+
     });
   }
 }
@@ -30,3 +41,4 @@ export const removeTask = (taskId) => {
     });
   }
 }
+

@@ -8,18 +8,12 @@ import {
   FormControl
 } from 'react-bootstrap';
 import Task from '../containers/task';
+import TaskInput from '../containers/TaskInput';
 
 const App = class extends Component {
   render() {
     const { tasks, addTask } = this.props
-    const handleAddTask = (e) => {
-      e.preventDefault();
-      // Have to use findDOMNode with react-bootstrap
-      const node = findDOMNode(this.refs.taskInput);
-      const task = {text: node.value};
-      addTask(task);
-      node.value = null;
-    }
+
     const renderTasks = () => {
       return (tasks||[]).map((task) => (
         <Task key={task._id} task={task} />
@@ -31,20 +25,16 @@ const App = class extends Component {
         <header>
           <h1>Todo List ({(tasks ||[] ).length})</h1>
         </header>
-        <FormGroup>
-          <InputGroup>
-            <FormControl type="text" ref="taskInput"/>
-            <InputGroup.Button>
-              <Button bsStyle="info" onClick={handleAddTask.bind(this)}> Add Task </Button>
-            </InputGroup.Button>
-          </InputGroup>
-        </FormGroup>
+        <TaskInput addButtonCallback={addTask} />
+
         <ul>
           {renderTasks()}
         </ul>
       </div>
     );
   }
+
+
 }
 
 export default App

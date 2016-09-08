@@ -18,15 +18,16 @@ class container extends Component {
 
 // container
 const mapState = ({Tasks}) => {
-  const {tasks, count} = Tasks
+  const {tasks, count} = Tasks;
   return {
     tasks, count
   }
 }
 const mapDispatch = (dispatch, getState) => {
   return {
+    dispatch,
     subscribe: () => dispatch(subscribe()),
-    addTask: (task) => dispatch(addTask(task)),
+    addTask: (task) => dispatch(addTask(task))
   }
 }
 export default connect(mapState, mapDispatch)(container)

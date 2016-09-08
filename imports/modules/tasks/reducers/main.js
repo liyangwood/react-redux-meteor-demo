@@ -1,3 +1,5 @@
+import { modelReducer, formReducer } from 'react-redux-form';
+
 const initState = {};
 
 export default (state = initState, action) => {
@@ -15,3 +17,10 @@ export default (state = initState, action) => {
   }
   return state
 }
+
+const formInitState = {
+  task : ''
+};
+
+export const form = modelReducer('form', formInitState);
+export const formForm = formReducer('form', formInitState);

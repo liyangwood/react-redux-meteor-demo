@@ -1,5 +1,7 @@
-import Tasks from './main';
+import Tasks, {form, formForm} from './main';
 
 export default {
-  Tasks
+  Tasks,
+  form,
+  formForm
 }
